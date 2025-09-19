@@ -8,6 +8,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 from . import utils
+from fastapi.middleware.cors import CORSMiddleware  
 
 # ----------------- Config (env-tunable) -----------------
 DATA_PROCESSED = os.getenv("DATA_PROCESSED", "data/processed/recipes.parquet")
@@ -121,6 +122,15 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(title="RecipeGen MVP", version="0.0.1", lifespan=lifespan)
+
+# enable CORS so React frontend can call backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or ["http://localhost:3000"]
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ----------------- Routes -----------------
 @app.get("/")
