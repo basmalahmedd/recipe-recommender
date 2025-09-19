@@ -70,15 +70,3 @@ It has two parts:
 4. Recommended recipes will appear.
 
 ---
-
-## 📂 Project Structure
-```
-uploadreay/
-│── main.py              # FastAPI backend
-│── requirements.txt     # Python dependencies
-│── data/                # Dataset files
-│── scripts/             # Utility scripts
-│── ui/                  # React frontend
-│── .gitignore
-│── README.md
-```
