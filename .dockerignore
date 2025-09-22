@@ -1,0 +1,8 @@
+.git
+__pycache__/
+*.pyc
+data/raw/
+ui/
+node_modules/
+.vscode/
+.DS_Store
