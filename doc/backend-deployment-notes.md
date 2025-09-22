@@ -7,11 +7,13 @@ This document explains how to build and run the **FastAPI backend** for RecipeGe
 ## Prerequisites
 
 * Docker (or Docker Desktop) installed
+
 * Access to this repository (with `Dockerfile.api`, `.dockerignore`, and `requirements.txt` present)
+
 * A processed dataset file: `data/processed/recipes.parquet`
-
+  
   * If it doesn’t exist, run:
-
+    
     ```bash
     python scripts/etl_clean.py --in data/raw/13k-recipes.csv --out data/processed/recipes.parquet
     ```
@@ -24,6 +26,14 @@ From the repo root:
 
 ```bash
 docker build -t recipegen-api -f Dockerfile.api .
+```
+
+---
+
+## Run the Container
+
+```bash
+docker run -p 8000:8000 recipegen-api
 ```
 
 ---
@@ -52,4 +62,16 @@ Example request:
 curl -X POST http://<host>/recommend \
   -H "content-type: application/json" \
   -d '{"ingredients":["eggs","tomato","cheese"], "k": 5}'
+```
+
+Expected response:
+
+```json
+{
+  "items": [
+    { "id": 101, "title": "Cheesy tomato omelette", ... },
+    { "id": 542, "title": "Tomato and egg scramble", ... }
+  ],
+  "low_confidence": false
+}
 ```
